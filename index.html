@@ -4,15 +4,53 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./main-themes/bocchi/style.css" />
+    <link rel="stylesheet" href="./main-themes/chopper/style.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&amp;display=swap"
       rel="stylesheet"
     />
     <title>Startpage</title>
+    <style>
+      .menu{
+        position: fixed;
+        top: 0;
+        right: 0;
+        padding: 10px 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .menu svg{
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+      }
+
+      .menu__buttons{
+        display: flex;
+        flex-direction: column;
+        visibility: hidden;
+        user-select: none;
+      }
+
+      .active{
+        visibility: visible;
+      }
+    </style>
+
   </head>
 
   <body>
+    <div class="menu" style="z-index: 10;">
+      <div class="burger">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#4a4a4a"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 18L20 18" stroke="#454545" stroke-width="2" stroke-linecap="round"></path> <path d="M4 12L20 12" stroke="#454545" stroke-width="2" stroke-linecap="round"></path> <path d="M4 6L20 6" stroke="#454545" stroke-width="2" stroke-linecap="round"></path> </g></svg>
+      </div>
+      <div class="menu__buttons">
+        <button onclick="changeCSS('bocchi', 0)">Bocchi</button>
+        <button onclick="changeCSS('chopper', 0)">Chopper</button>
+      </div>
+    </div>
     <div class="wrapper">
       <div class="bg"></div>
       <div class="maincard">
@@ -20,7 +58,7 @@
           <div class="image">
             <img
               id="img"
-              src="./main-themes/bocchi/images/bocchi_wal.jpg"
+              src="./main-themes/chopper/images/gif.gif"
               alt="No image"
             />
           </div>
@@ -77,8 +115,8 @@
       selectedTheme.setAttribute("rel", "stylesheet");
       selectedTheme.setAttribute("type", "text/css");
       selectedTheme.setAttribute("href", `./main-themes/${theme}/style.css`);
-      // changeImgSrc(theme);
-      // console.log(selectedTheme);
+      changeImgSrc(theme);
+      console.log(selectedTheme);
       var oldlink = document.getElementsByTagName("link").item(0);
       document
         .getElementsByTagName("head")
@@ -87,13 +125,12 @@
     }
 
     function changeCSS(cssFile, cssLinkIndex) {
-      console.log("Onclick working");
       var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
       var newlink = document.createElement("link");
       newlink.setAttribute("rel", "stylesheet");
       newlink.setAttribute("type", "text/css");
       newlink.setAttribute("href", `./main-themes/${cssFile}/style.css`);
-      // changeImgSrc(cssFile);
+      changeImgSrc(cssFile);
       document
         .getElementsByTagName("head")
         .item(cssLinkIndex)
@@ -125,6 +162,11 @@
 
       return false;
     }
+    const menu = document.querySelector('.menu');
+    const buttons = document.querySelector('.menu__buttons');
+    menu.addEventListener('click', () => {
+      buttons.classList.toggle('active');
+    });
 
   </script>
 </html>
